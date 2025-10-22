@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Allan - Portfólio Moderno</title>
+    <title>Gabriel Allan - Desenvolvedor Front-End</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -13,9 +13,9 @@
     <header id="header">
         <div class="logo">GA.</div>
         <nav class="nav-menu">
-            <a href="#sobre">Sobre Mim</a>
-            <a href="#portfolio">Portfólio</a>
-            <a href="#habilidades">Habilidades</a>
+            <a href="index.html">Home</a>
+            <a href="portfolio.html">Portfólio</a>
+            <a href="./habilidades.html">Habilidades</a>
             <a href="#contato" class="btn-cta">Contato</a>
         </nav>
         <button class="menu-toggle" aria-label="Abrir Menu">
@@ -26,85 +26,22 @@
     <main>
         <section id="sobre" class="hero section-padding">
             <div class="hero-content">
-                <img src="imagens/perfil.jpg" alt="Foto de Perfil" class="profile-pic">
+                <img src="imagens/perfil.jpg" alt="Sua Foto de Perfil" class="profile-pic">
                 <h1>Gabriel Allan Ribeiro da Silva</h1>
-                <p class="subtitle">Sou um desenvolvedor <span class="highlight">Front-End</span> em treinamento, apaixonado por aprender tecnologias novas.</p>
+                <p class="subtitle">Sou um desenvolvedor <span class="highlight">Front-End</span> apaixonado por criar experiências digitais incríveis. Comprometido em criar interfaces intuitivas e acessíveis.</p>
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/gabriel-ribeiro-888518275/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
-                    <a href="https://github.com/GabrielRib2" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+                    <a href="URL_LINKEDIN" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+                    <a href="URL_GITHUB" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+                </div>
+                <div style="margin-top: 40px;">
+                    <a href="./portfolio.html" class="btn-cta">Ver Portfólio Completo</a>
                 </div>
             </div>
-        </section>
-
-        <section id="portfolio" class="section-padding">
-            <h2>Meus Projetos</h2>
-            <div class="portfolio-grid">
-                <div class="project-card fade-in">
-                    <img src="imagens/kaban.png" alt="Imagem do Projeto 1">
-                    <div class="card-content">
-                        <h3>Jogo da Adivinhação</h3>
-                        <p>Descrição curta do projeto e tecnologias usadas (React, Node.js).</p>
-                        <a href="URL_PROJETO_1" target="_blank" class="btn-card">Ver Projeto <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <img src="https://via.placeholder.com/400x250?text=Projeto+2" alt="Imagem do Projeto 2">
-                    <div class="card-content">
-                        <h3>Nome do Projeto 2</h3>
-                        <p>Uma aplicação moderna de gerenciamento de tarefas (Vue.js, Firebase).</p>
-                        <a href="URL_PROJETO_2" target="_blank" class="btn-card">Ver Projeto <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <img src="https://via.placeholder.com/400x250?text=Projeto+3" alt="Imagem do Projeto 3">
-                    <div class="card-content">
-                        <h3>Nome do Projeto 3</h3>
-                        <p>Site institucional responsivo com foco em acessibilidade (HTML, CSS).</p>
-                        <a href="URL_PROJETO_3" target="_blank" class="btn-card">Ver Projeto <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="habilidades" class="section-padding">
-            <h2>Minhas Habilidades</h2>
-            <div class="skills-grid">
-                <div class="skill-item fade-in-left">
-                    <div class="skill-info">
-                        <span>HTML5/CSS3</span>
-                        <span>95%</span>
-                    </div>
-                    <div class="skill-bar"><div class="skill-level" data-level="95"></div></div>
-                </div>
-                <div class="skill-item fade-in-left">
-                    <div class="skill-info">
-                        <span>JavaScript (ES6+)</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="skill-bar"><div class="skill-level" data-level="80"></div></div>
-                </div>
-                <div class="skill-item fade-in-left">
-                    <div class="skill-info">
-                        <span>React / Next.js</span>
-                        <span>70%</span>
-                    </div>
-                    <div class="skill-bar"><div class="skill-level" data-level="70"></div></div>
-                </div>
-                <div class="skill-item fade-in-left">
-                    <div class="skill-info">
-                        <span>Python (Django/Flask)</span>
-                        <span>65%</span>
-                    </div>
-                    <div class="skill-bar"><div class="skill-level" data-level="65"></div></div>
-                </div>
-                </div>
         </section>
 
         <section id="contato" class="section-padding contact-section">
             <h2>Entre em Contato</h2>
-            <div class="contact-container">
+            <div class="contact-container fade-in">
                 <form id="contact-form" class="contact-form">
                     <input type="text" name="nome" placeholder="Seu Nome" required>
                     <input type="email" name="email" placeholder="Seu Email" required>
