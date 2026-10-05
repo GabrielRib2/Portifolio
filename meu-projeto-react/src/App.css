@@ -1,0 +1,256 @@
+:root {
+  --bg: #0f1220;
+  --card: #181c30;
+  --borda: #2a3050;
+  --texto: #e8eaf6;
+  --suave: #9aa3c7;
+  --destaque: #7c8cff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main,
+.topo,
+.rodape {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.topo nav {
+  display: flex;
+  gap: 20px;
+}
+
+.topo nav a {
+  color: var(--suave);
+  transition: color 0.2s;
+}
+
+.topo nav a:hover {
+  color: var(--texto);
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.foto {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--destaque);
+  flex-shrink: 0;
+  background: var(--card);
+}
+
+.ola {
+  margin: 0;
+  color: var(--destaque);
+  font-weight: 600;
+}
+
+.hero h1 {
+  margin: 4px 0;
+  font-size: 2.6rem;
+  line-height: 1.1;
+}
+
+.hero h2 {
+  margin: 0 0 16px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--suave);
+}
+
+.sobre {
+  max-width: 560px;
+  color: var(--suave);
+}
+
+.botao {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 20px;
+  background: var(--destaque);
+  color: #0f1220;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.botao:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.secao {
+  font-size: 1.8rem;
+  margin: 60px 0 24px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--destaque);
+}
+
+.card-img {
+  aspect-ratio: 16 / 10;
+  background: #0b0e1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-body h3 {
+  margin: 0 0 8px;
+}
+
+.card-body p {
+  margin: 0 0 12px;
+  color: var(--suave);
+  font-size: 0.95rem;
+}
+
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0 0 12px;
+}
+
+.tags li {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  color: var(--suave);
+}
+
+.card-body .botao {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.redes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.redes a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.redes a:hover {
+  border-color: var(--destaque);
+  transform: translateY(-3px);
+}
+
+.redes img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.rodape {
+  text-align: center;
+  color: var(--suave);
+  font-size: 0.85rem;
+  padding-top: 60px;
+  padding-bottom: 30px;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .topo nav {
+    gap: 14px;
+  }
+}
