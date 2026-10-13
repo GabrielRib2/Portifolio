@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const img = (nome) => new URL(`./assets/${nome}`, import.meta.url).href;
+const galeriaFandi = [
+  "fandi-5.png",
+  ...Array.from({ length: 7 }, (_, indice) => `fandi-${indice + 1}.png`).filter(
+    (imagem) => imagem !== "fandi-5.png",
+  ),
+];
 
 const temaInicial = "claro";
 
@@ -47,6 +53,23 @@ const projetos = {
       link: "#",
       tags: ["Jogo", "Interatividade"],
     },
+    {
+      titulo: "Projeto Oráculo 2.0",
+      descricao:
+        "Desenvolvido para a Fandi Avonale como projeto acadêmico de monitoramento de erros, com painéis de análise e acompanhamento em tempo real.",
+      imagem: "fandi-5.png",
+      galeria: galeriaFandi,
+      legendas: [
+        "O Explorador reúne todos os erros com base nos dados registrados e oferece uma barra lateral para filtrar as informações.",
+        "O Modo TV exibe um resumo geral dos erros e alterna as telas a cada 10 segundos. A apresentação pode ser pausada pelo botão e navegada pelas setas do teclado.",
+        "O Modo TV mostra os erros frequentes por quantitativo geral, identificando quais se repetem mais independentemente do banco.",
+        "O Modo TV mostra a distribuição de erros por sistema, indicando quantos erros existem em cada banco.",
+        "O Modo TV mostra a distribuição por grupo: cada banco pertence a um grupo, e esta tela apresenta quantos erros existem em cada grupo de bancos.",
+        "O Dashboard apresenta a tendência de erros nas últimas 24 horas, a distribuição por sistema ou banco e o mapa de atividade em tempo real.",
+        "O Explorador em modo escuro mantém os filtros e os dados de erros em uma interface de alto contraste.",
+      ],
+      tags: ["Projeto acadêmico", "Dashboard"],
+    },
   ],
   en: [
     {
@@ -73,6 +96,23 @@ const projetos = {
       link: "#",
       tags: ["Game", "Interactivity"],
     },
+    {
+      titulo: "Project Oracle 2.0",
+      descricao:
+        "Developed for Fandi Avonale as an academic error-monitoring project, with dashboards for analysis and real-time tracking.",
+      imagem: "fandi-5.png",
+      galeria: galeriaFandi,
+      legendas: [
+        "Explorer brings together all errors based on recorded data and provides a sidebar to filter the information.",
+        "TV mode displays an overview of errors and switches screens every 10 seconds. Pause the presentation with the button, or navigate between screens using the keyboard arrow keys.",
+        "TV mode shows frequently occurring errors by overall count, identifying which ones repeat most regardless of the bank.",
+        "TV mode shows the distribution of errors by system, indicating how many errors exist in each bank.",
+        "TV mode shows the distribution by group: each bank belongs to a group, and this screen displays how many errors exist in each group of banks.",
+        "The Dashboard shows the error trend over the last 24 hours, distribution by system or bank, and a real-time activity map.",
+        "Explorer in dark mode keeps filters and error data in a high-contrast interface.",
+      ],
+      tags: ["Academic project", "Dashboard"],
+    },
   ],
 };
 
@@ -82,21 +122,52 @@ const redes = [
   { nome: "Instagram", imagem: "Instagram.jpg", link: "https://www.instagram.com/allan_gaeb/?hl=pt-br" },
 ];
 
-function Projeto({ projeto, labelBotao, labelAlt }) {
+function Projeto({
+  projeto,
+  labelBotao,
+  labelAlt,
+  labelGaleria,
+  labelAbrirGaleria,
+  onOpenGallery,
+}) {
   const [erro, setErro] = useState(false);
+  const abreGaleria = () => onOpenGallery(projeto);
+
   return (
     <article className="card">
-      <div className="card-img">
-        {erro ? (
-          <span>{projeto.imagem}</span>
-        ) : (
-          <img
-            src={img(projeto.imagem)}
-            alt={`${labelAlt} ${projeto.titulo}`}
-            onError={() => setErro(true)}
-          />
-        )}
-      </div>
+      {projeto.galeria ? (
+        <button
+          type="button"
+          className="card-img gallery-preview"
+          onClick={abreGaleria}
+          aria-label={`${labelAbrirGaleria}: ${projeto.titulo}`}
+        >
+          {erro ? (
+            <span>{projeto.imagem}</span>
+          ) : (
+            <>
+              <img
+                src={img(projeto.imagem)}
+                alt={`${labelAlt} ${projeto.titulo}`}
+                onError={() => setErro(true)}
+              />
+              <span className="gallery-preview-label">{labelGaleria}</span>
+            </>
+          )}
+        </button>
+      ) : (
+        <div className="card-img">
+          {erro ? (
+            <span>{projeto.imagem}</span>
+          ) : (
+            <img
+              src={img(projeto.imagem)}
+              alt={`${labelAlt} ${projeto.titulo}`}
+              onError={() => setErro(true)}
+            />
+          )}
+        </div>
+      )}
       <div className="card-body">
         <h3>{projeto.titulo}</h3>
         <p>{projeto.descricao}</p>
@@ -105,11 +176,144 @@ function Projeto({ projeto, labelBotao, labelAlt }) {
             <li key={t}>{t}</li>
           ))}
         </ul>
-        <a className="botao" href={projeto.link} target="_blank" rel="noreferrer">
-          {labelBotao}
-        </a>
+        {projeto.galeria ? (
+          <button type="button" className="botao" onClick={abreGaleria}>
+            {labelGaleria}
+          </button>
+        ) : (
+          <a className="botao" href={projeto.link} target="_blank" rel="noreferrer">
+            {labelBotao}
+          </a>
+        )}
       </div>
     </article>
+  );
+}
+
+function GaleriaProjeto({ projeto, textos, onClose }) {
+  const { galeria } = projeto;
+  const [indiceAtual, setIndiceAtual] = useState(() => {
+    const indiceCapa = galeria.indexOf(projeto.imagem);
+    return indiceCapa >= 0 ? indiceCapa : 0;
+  });
+  const botaoFecharRef = useRef(null);
+
+  useEffect(() => {
+    const overflowOriginal = document.body.style.overflow;
+    const elementoAtivo = document.activeElement;
+    document.body.style.overflow = "hidden";
+    botaoFecharRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = overflowOriginal;
+      elementoAtivo?.focus();
+    };
+  }, []);
+
+  useEffect(() => {
+    const tratarTecla = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      } else if (event.key === "ArrowRight") {
+        setIndiceAtual((atual) => (atual + 1) % galeria.length);
+      } else if (event.key === "ArrowLeft") {
+        setIndiceAtual((atual) => (atual - 1 + galeria.length) % galeria.length);
+      }
+    };
+
+    window.addEventListener("keydown", tratarTecla);
+    return () => window.removeEventListener("keydown", tratarTecla);
+  }, [galeria.length, onClose]);
+
+  const anterior = () =>
+    setIndiceAtual((atual) => (atual - 1 + galeria.length) % galeria.length);
+  const proxima = () => setIndiceAtual((atual) => (atual + 1) % galeria.length);
+
+  return (
+    <div
+      className="gallery-backdrop"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+      role="presentation"
+    >
+      <section
+        className="gallery-viewer"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${projeto.titulo} — ${textos.tituloGaleria}`}
+      >
+        <header className="gallery-header">
+          <h2>{projeto.titulo}</h2>
+          <button
+            ref={botaoFecharRef}
+            type="button"
+            className="gallery-close"
+            onClick={onClose}
+            aria-label={textos.fecharGaleria}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m6 6 12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </header>
+
+        <div className="gallery-stage">
+          {galeria.length > 1 && (
+            <button
+              type="button"
+              className="gallery-arrow gallery-previous"
+              onClick={anterior}
+              aria-label={textos.imagemAnterior}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+          )}
+          <img
+            className="gallery-image"
+            src={img(galeria[indiceAtual])}
+            alt={`${projeto.titulo} — ${textos.imagem} ${indiceAtual + 1} ${textos.de} ${galeria.length}`}
+          />
+          {galeria.length > 1 && (
+            <button
+              type="button"
+              className="gallery-arrow gallery-next"
+              onClick={proxima}
+              aria-label={textos.proximaImagem}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        <footer className="gallery-footer">
+          <p className="gallery-caption" aria-live="polite">
+            {projeto.legendas[indiceAtual]}
+          </p>
+          <div className="gallery-pagination">
+            <span aria-live="polite">
+              {indiceAtual + 1} / {galeria.length}
+            </span>
+            <div className="gallery-dots" aria-label={textos.navegacaoGaleria}>
+              {galeria.map((imagem, indice) => (
+                <button
+                  key={imagem}
+                  type="button"
+                  className={`gallery-dot ${indice === indiceAtual ? "is-active" : ""}`}
+                  onClick={() => setIndiceAtual(indice)}
+                  aria-label={`${textos.irParaImagem} ${indice + 1}`}
+                  aria-current={indice === indiceAtual ? "true" : undefined}
+                />
+              ))}
+            </div>
+          </div>
+        </footer>
+      </section>
+    </div>
   );
 }
 
@@ -169,6 +373,7 @@ export default function App() {
   const [tema, setTema] = useState(temaInicial);
   const [idioma, setIdioma] = useState("pt");
   const [habilidadesVisivel, setHabilidadesVisivel] = useState(false);
+  const [projetoGaleriaAtiva, setProjetoGaleriaAtiva] = useState(null);
   const temaEscuro = tema === "escuro";
   const perfilAtual = perfil[idioma];
   const projetosAtuais = projetos[idioma];
@@ -188,6 +393,16 @@ export default function App() {
       footer: "Feito com React",
       projeto: "Ver projeto",
       projetoAlt: "Captura de tela do projeto",
+      verGaleria: "Conheça o projeto",
+      abrirGaleria: "Abrir galeria em tela cheia",
+      tituloGaleria: "galeria de imagens",
+      fecharGaleria: "Fechar galeria",
+      imagemAnterior: "Imagem anterior",
+      proximaImagem: "Próxima imagem",
+      imagem: "Imagem",
+      de: "de",
+      navegacaoGaleria: "Navegação da galeria",
+      irParaImagem: "Ir para a imagem",
       idioma: "EN",
       ariaIdioma: "Switch to English",
       habilidadesDescricao: "Tecnologias e ferramentas que uso no dia a dia.",
@@ -204,6 +419,16 @@ export default function App() {
       footer: "Made with React",
       projeto: "View project",
       projetoAlt: "Screenshot of the project",
+      verGaleria: "Discover the project",
+      abrirGaleria: "Open full-screen gallery",
+      tituloGaleria: "image gallery",
+      fecharGaleria: "Close gallery",
+      imagemAnterior: "Previous image",
+      proximaImagem: "Next image",
+      imagem: "Image",
+      de: "of",
+      navegacaoGaleria: "Gallery navigation",
+      irParaImagem: "Go to image",
       idioma: "PT",
       ariaIdioma: "Alternar para português",
       habilidadesDescricao: "Technologies and tools I use day to day.",
@@ -305,6 +530,9 @@ export default function App() {
                 projeto={p}
                 labelBotao={textoAtual.projeto}
                 labelAlt={textoAtual.projetoAlt}
+                labelGaleria={textoAtual.verGaleria}
+                labelAbrirGaleria={textoAtual.abrirGaleria}
+                onOpenGallery={setProjetoGaleriaAtiva}
               />
             ))}
           </div>
@@ -326,6 +554,14 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      {projetoGaleriaAtiva && (
+        <GaleriaProjeto
+          projeto={projetoGaleriaAtiva}
+          textos={textoAtual}
+          onClose={() => setProjetoGaleriaAtiva(null)}
+        />
+      )}
 
       <footer className="rodape">
         <a className="botao voltar-topo" href="#topo">
