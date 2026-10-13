@@ -77,9 +77,9 @@ const projetos = {
 };
 
 const redes = [
-  { nome: "GitHub", imagem: "GitHub.jpg", link: "https://github.com/" },
-  { nome: "LinkedIn", imagem: "LinkedIn.jpg", link: "https://www.linkedin.com/" },
-  { nome: "Instagram", imagem: "Instagram.jpg", link: "https://www.instagram.com/" },
+  { nome: "GitHub", imagem: "GitHub.jpg", link: "https://github.com/GabrielRib2" },
+  { nome: "LinkedIn", imagem: "LinkedIn.jpg", link: "https://www.linkedin.com/in/gabrielrib2/" },
+  { nome: "Instagram", imagem: "Instagram.jpg", link: "https://www.instagram.com/allan_gaeb/?hl=pt-br" },
 ];
 
 function Projeto({ projeto, labelBotao, labelAlt }) {
@@ -168,36 +168,45 @@ function IconeRede({ nome }) {
 export default function App() {
   const [tema, setTema] = useState(temaInicial);
   const [idioma, setIdioma] = useState("pt");
+  const [habilidadesVisivel, setHabilidadesVisivel] = useState(false);
   const temaEscuro = tema === "escuro";
   const perfilAtual = perfil[idioma];
   const projetosAtuais = projetos[idioma];
+
+  const habilidades = ["HTML", "CSS", "JavaScript", "REACT", "FIGMA"];
 
   const textos = {
     pt: {
       sobre: "Sobre",
       projetos: "Projetos",
       contato: "Contato",
+      habilidades: "Habilidades",
       ola: "Olá, eu sou",
-      verProjetos: "Ver meus projetos",
+      verProjetos: "Projetos",
+      voltarTopo: "Voltar ao topo",
       ariaTema: temaEscuro ? "Ativar modo claro" : "Ativar modo escuro",
       footer: "Feito com React",
       projeto: "Ver projeto",
       projetoAlt: "Captura de tela do projeto",
       idioma: "EN",
       ariaIdioma: "Switch to English",
+      habilidadesDescricao: "Tecnologias e ferramentas que uso no dia a dia.",
     },
     en: {
       sobre: "About",
       projetos: "Projects",
       contato: "Contact",
+      habilidades: "Skills",
       ola: "Hello, I'm",
-      verProjetos: "View my projects",
+      verProjetos: "Projects",
+      voltarTopo: "Back to top",
       ariaTema: temaEscuro ? "Switch to light mode" : "Switch to dark mode",
       footer: "Made with React",
       projeto: "View project",
       projetoAlt: "Screenshot of the project",
       idioma: "PT",
       ariaIdioma: "Alternar para português",
+      habilidadesDescricao: "Technologies and tools I use day to day.",
     },
   };
 
@@ -205,7 +214,7 @@ export default function App() {
 
   return (
     <div className="app-shell" data-theme={tema}>
-      <header className="topo">
+      <header className="topo" id="topo">
         <span className="logo">{perfilAtual.nome}</span>
 
         <div className="topo-direita">
@@ -255,9 +264,35 @@ export default function App() {
             <h1>{perfilAtual.nome}</h1>
             <h2>{perfilAtual.titulo}</h2>
             <p className="sobre">{perfilAtual.sobre}</p>
-            <a className="botao" href="#projetos">
-              {textoAtual.verProjetos}
-            </a>
+            <div className="hero-actions">
+              <a className="botao" href="#projetos">
+                {textoAtual.verProjetos}
+              </a>
+              <button
+                type="button"
+                className="botao"
+                onClick={() => setHabilidadesVisivel((atual) => !atual)}
+              >
+                {textoAtual.habilidades}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="habilidades"
+          className={`skills-section ${habilidadesVisivel ? "is-visible" : ""}`}
+        >
+          <div className="skills-header">
+            <h2 className="secao">{textoAtual.habilidades}</h2>
+          </div>
+          <p className="skills-description">{textoAtual.habilidadesDescricao}</p>
+          <div className="skills-grid">
+            {habilidades.map((habilidade) => (
+              <span key={habilidade} className="skill-pill">
+                {habilidade}
+              </span>
+            ))}
           </div>
         </section>
 
@@ -293,6 +328,23 @@ export default function App() {
       </main>
 
       <footer className="rodape">
+        <a className="botao voltar-topo" href="#topo">
+          <svg
+            className="voltar-topo-icone"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 19V5m0 0L6 11m6-6 6 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          {textoAtual.voltarTopo}
+        </a>
         © {new Date().getFullYear()} {perfilAtual.nome}. {textoAtual.footer}.
       </footer>
     </div>

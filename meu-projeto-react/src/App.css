@@ -90,12 +90,17 @@ main,
 }
 
 .topo nav a {
+  padding: 8px 10px;
+  border-radius: 8px;
   color: var(--suave);
-  transition: color 0.2s;
+  transition: color 0.2s, background-color 0.2s, box-shadow 0.2s;
 }
 
-.topo nav a:hover {
+.topo nav a:hover,
+.topo nav a:focus-visible {
   color: var(--texto);
+  background: rgba(168, 183, 255, 0.14);
+  box-shadow: inset 0 0 0 1px var(--borda);
 }
 
 .theme-toggle,
@@ -168,17 +173,19 @@ main,
 }
 
 .lang-toggle .toggle-track {
-  width: 96px;
+  width: 132px;
+  height: 42px;
   justify-content: center;
+  padding: 0;
 }
 
 .lang-toggle .toggle-thumb {
-  width: 42px;
-  height: 28px;
+  width: 62px;
+  height: 30px;
   border-radius: 999px;
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
-  left: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  left: 5px;
   right: auto;
   top: 50%;
   background: linear-gradient(180deg, #ffffff, #efefef);
@@ -187,9 +194,8 @@ main,
 }
 
 .lang-toggle.is-en .toggle-thumb {
-  left: auto;
-  right: 4px;
-  transform: translateY(-50%);
+  transform: translate(62px, -50%);
+  left: 5px;
 }
 
 .lang-toggle .toggle-thumb,
@@ -202,8 +208,8 @@ main,
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.58rem;
-  font-weight: 700;
+  font-size: 0.72rem;
+  font-weight: 800;
   letter-spacing: 0.08em;
   color: var(--suave);
   transition: color 0.2s ease;
@@ -211,11 +217,11 @@ main,
 }
 
 .toggle-label-pt {
-  left: 12px;
+  left: 18px;
 }
 
 .toggle-label-en {
-  right: 12px;
+  right: 18px;
 }
 
 .lang-toggle.is-en .toggle-label-en,
@@ -295,14 +301,24 @@ main,
   margin-bottom: 22px;
 }
 
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
 .botao {
   display: inline-block;
   margin-top: 0;
   padding: 12px 22px;
   background: var(--destaque);
   color: var(--botao-texto);
+  font: inherit;
   font-weight: 700;
+  border: none;
   border-radius: 10px;
+  cursor: pointer;
   transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s ease;
   box-shadow: 0 8px 18px rgba(168, 183, 255, 0.18);
 }
@@ -311,6 +327,77 @@ main,
   transform: translateY(-2px);
   opacity: 0.96;
   box-shadow: 0 12px 24px rgba(168, 183, 255, 0.22);
+}
+
+.voltar-topo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border-radius: 10px;
+  padding: 12px 22px;
+}
+
+.voltar-topo-icone {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+.voltar-topo:hover .voltar-topo-icone {
+  transform: translateY(-2px);
+}
+
+.botao-secundario {
+  background: transparent;
+  border: 1px solid var(--borda);
+  color: var(--texto);
+  box-shadow: none;
+}
+
+.botao-secundario:hover {
+  background: rgba(168, 183, 255, 0.06);
+}
+
+.skills-section {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.25s ease;
+  margin-top: 0;
+}
+
+.skills-section.is-visible {
+  max-height: 260px;
+  opacity: 1;
+  margin-top: 18px;
+}
+
+.skills-header .secao {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.skills-description {
+  margin: 0 0 18px;
+  color: var(--suave);
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(168, 183, 255, 0.12);
+  border: 1px solid rgba(168, 183, 255, 0.25);
+  color: var(--texto);
+  font-weight: 600;
 }
 
 .secao {
@@ -353,9 +440,9 @@ main,
 }
 
 .app-shell[data-theme="escuro"] .theme-toggle {
-  border-color: rgba(168, 183, 255, 0.4);
-  background: rgba(31, 38, 48, 0.9);
-  box-shadow: 0 0 0 1px rgba(168, 183, 255, 0.16), 0 8px 18px rgba(17, 24, 39, 0.36);
+  border: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .app-shell[data-theme="escuro"] .tags li {
@@ -465,6 +552,10 @@ main,
 }
 
 .rodape {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
   text-align: center;
   color: var(--suave);
   font-size: 0.85rem;
