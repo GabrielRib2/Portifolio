@@ -3,10 +3,10 @@ import { useState } from "react";
 const img = (nome) => new URL(`./assets/${nome}`, import.meta.url).href;
 
 const perfil = {
-  nome: "Seu Nome",
-  titulo: "Desenvolvedor em formação",
+  nome: "Gabriel Ribeiro",
+  titulo: "Desenvolvedor e Ui/UX Designer",
   sobre:
-    "Sou apaixonado por tecnologia e estou construindo meu caminho na programação. Aqui você encontra alguns dos projetos que desenvolvi ao longo dos meus estudos.",
+    "Sou apaixonado por tecnologia. Aqui você encontra alguns dos projetos que desenvolvi ao longo dos meus estudos.",
   foto: "perfil.jpg",
 };
 
