@@ -13,14 +13,14 @@ const temaInicial = "claro";
 const perfil = {
   pt: {
     nome: "Gabriel Ribeiro",
-    titulo: "Desenvolvedor e Ui/UX Designer",
+    titulo: "Desenvolvedor e UI/UX Designer",
     sobre:
       "Sou apaixonado por tecnologia. Aqui você encontra alguns dos projetos que desenvolvi ao longo dos meus estudos.",
     foto: "perfil.jpg",
   },
   en: {
     nome: "Gabriel Ribeiro",
-    titulo: "Developer and Ui/UX Designer",
+    titulo: "Developer and UI/UX Designer",
     sobre:
       "I'm passionate about technology. Here you can find some of the projects I developed throughout my studies.",
     foto: "perfil.jpg",
@@ -487,7 +487,7 @@ export default function App() {
           <div>
             <p className="ola">{textoAtual.ola}</p>
             <h1>{perfilAtual.nome}</h1>
-            <h2>{perfilAtual.titulo}</h2>
+            <p className="hero-role">{perfilAtual.titulo}</p>
             <p className="sobre">{perfilAtual.sobre}</p>
             <div className="hero-actions">
               <a className="botao" href="#projetos">
